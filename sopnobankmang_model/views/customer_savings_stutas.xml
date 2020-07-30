@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Customer-->
+    <record id="customer_savings_stutas_tree_view" model="ir.ui.view">
+        <field name="name">customer_savings_stutas.tree.view</field>
+        <field name="model">customer_savings_stutas</field>
+        <field name="arch" type="xml">
+            <tree string="customer_savings_stutas Information">
+                <field name="name"/>
+                <field name="savings_name"/>
+                <field name="total_savings"/>
+                <field name="worth_savings"/>
+                <field name="available_savings"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+    <!-- Form View Of Customer  -->
+    <record id="customer_savings_stutas_form_view" model="ir.ui.view">
+        <field name="name">customer_savings_stutas.form.view</field>
+        <field name="model">customer_savings_stutas</field>
+        <field name="arch" type="xml">
+            <form>
+                 <sheet>
+                     <group>
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-2" style="padding-left:0px;">
+                                     <div style="border: 1px solid lightgray">
+                                         <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" width="50" height="50"/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-10" style="padding-top:0px; ">
+                                     <h3 class="text-primary">CUSTOMER SAVINGS STATUS</h3>
+                                 </div>
+                            </div>
+                         </group>
+                     </group>
+                     <group>
+                        <group>
+                            <field name="name" placeholder="Search Customer"/>
+                            <field name="savings_name"/>
+                        </group>
+                        <group>
+                            <field name="total_savings" readonly="1"/>
+                            <field name="worth_savings" readonly="1"/>
+                            <field name="available_savings" readonly="1"/>
+                        </group>
+                     </group>
+                 </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--   Define custom action -->
+
+    <record id="customer_savings_stutas_action" model="ir.actions.act_window">
+        <field name="name">Customer Savings Status</field>
+        <field name="res_model">customer_savings_stutas</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to show customer savings status !
+            </p>
+        </field>
+    </record>
+    <!--   Create Top Menu  -->
+    <menuitem name="Customer Savings Status" parent="customer_savings" id="customer_savings_stutas_top_menu"
+              action="customer_savings_stutas_action" sequence="2"/>
+</odoo>
+

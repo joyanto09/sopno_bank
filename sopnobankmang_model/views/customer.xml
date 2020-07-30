@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Customer-->
+    <record id="customer_tree_view" model="ir.ui.view">
+        <field name="name">customer.tree.view</field>
+        <field name="model">customer</field>
+        <field name="arch" type="xml">
+            <tree string="customer Information" default_order='c_r_date desc'>
+                <field name="name" invisible="1"/>
+                <field name="acc_id"/>
+                <field name="acc_fname"/>
+                <field name="acc_lname"/>
+                <field name="f_s_name"/>
+                <field name="c_gender" invisible="1"/>
+                <field name="c_age" invisible="1"/>
+                <field name="c_nid"/>
+                <field name="c_r_date"/>
+                <field name="c_mobile"/>
+                <field name="c_religion" invisible="1"/>
+                <field name="c_address"/>
+                <field name="c_r_fee" />
+                <field name="c_r_year" />
+<!--                <field name="loan_get" />-->
+                <field name="c_r_image" widget="image" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Group-->
+    <record id="customer_search_view" model="ir.ui.view">
+        <field name="name">customer.search.view</field>
+         <field name="model">customer</field>
+        <field name="arch" type="xml">
+            <search string="customer search">
+                <group expand="1" string="Group by ..">
+                    <filter name="acc_fname" string="Name" domain="[]" context="{'group_by':'acc_fname'}"/>
+                    <filter name="acc_id" string="ID" domain="[]" context="{'group_by':'acc_id'}"/>
+                </group>
+    <!-- Filter -->
+                <!-- < age =20 -->
+                <filter string="My Second Filter" name="acc_id" domain="[('acc_id', '&lt;', 20)]">
+                </filter>
+
+                <filter string="My First Filter" name="acc_id" domain="[('acc_id', '&gt;', 20)]">
+
+                </filter>
+            <!-- Data Searching -->
+                <field name="acc_fname" string="Name" filter_domain="[('acc_fname', 'ilike', self)]"/>
+                <field name="acc_id" string="Age" filter_domain="[('acc_id', 'ilike', self)]"/>
+
+            </search>
+        </field>
+
+    </record>
+    <!-- kanban view -->
+    <record model="ir.ui.view" id="My_kanban">
+        <field name="name">Kanban</field>
+        <field name="model">customer</field>
+        <field name="arch" type="xml">
+            <kanban default_order='c_r_date desc'>
+                <field name="id"/>
+                <field name="name"/>
+                <field name="reg_sec"/>
+                <field name="f_s_name"/>
+                <field name="c_r_image"/>
+                <field name="c_mobile"/>
+                <field name="c_r_date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_vignette oe_semantic_html_override">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <a type="open"><img t-att-src="kanban_image('customer', 'c_r_image',record.id.raw_value)" class="o_kanban_image"/></a>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <div class="oe_kanban_details">
+                                            <strong class="o_kanban_record_title">
+                                                <h4>
+                                                    <a type="open">
+                                                            <t>[<field name="reg_sec"/>]</t> <field name="name"/>
+                                                    </a>
+                                                </h4>
+                                            </strong>
+                                            <div name="tags"/>
+                                            <ul>
+                                                <li>F/S Name: <field name="f_s_name"></field></li>
+                                                <li>Contact: <field name="c_mobile"></field></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Form View Of Customer  -->
+
+    <record id="customer_form_view" model="ir.ui.view">
+        <field name="name">customer.form.view</field>
+        <field name="model">customer</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="done_registration" string="Done" type="object"
+                           attrs="{'invisible':[('state','!=', 'draft')]}" class="btn-success"/>
+                    <button name="" string="Cancel" type="" class="btn"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done,cancel,"/>
+                </header>
+                 <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="open_customer_loan_form"
+                            string="Customer Loan" type="object"
+                            attrs="{'invisible':[('state','!=', 'done')]}" icon="fa-bars"/> <!--attrs="{'invisible':[('move_line_ids','=',[])]}"-->
+                     </div>
+                     <div class="oe_title">
+                        <h1>
+                            <field name="reg_sec" readonly="1" attrs="{'invisible':[('state','!=', 'done')]}"/>
+                        </h1>
+                     </div>
+
+                     <group>
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-2" style="padding-left:0px;">
+                                     <div style="border: 1px solid lightgray">
+                                         <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" width="50" height="50"/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-10" style="padding-top:0px; ">
+                                     <h3 class="text-primary">CUSTOMER REGISTRATION FORM</h3>
+                                 </div>
+                            </div>
+                         </group>
+                     </group>
+                     <group>
+                        <group>
+                            <field name="acc_id" placeholder="For Example: 2001"/>
+                            <field name="acc_fname" placeholder="Customer First Name"/>
+                            <field name="acc_lname" placeholder="CustomerLast Name"/>
+                            <field name="f_s_name" placeholder="Customer Father/Spouse Name"/>
+                            <field name="c_gender" placeholder="Select Gender"/>
+                            <field name="c_age" placeholder="Customer Age"/>
+                            <field name="c_nid" placeholder="Customer NID Number"/>
+                        </group>
+                        <group>
+                            <field name="c_r_date" placeholder="Select Date"/>
+                            <field name="c_mobile" placeholder="Customer Mobile Number"/>
+                            <field name="c_religion" placeholder="Select Religion"/>
+                            <field name="c_address" placeholder="Customer Address"/>
+                            <field name="c_r_fee"/>
+                            <field name="c_r_year" placeholder="Select Year"/>
+<!--                            <field name="loan_get"/>-->
+                            <field name="c_r_image" class="oe_avatar"
+                                   options="{'preview_image': 'image_large', 'size': [300, 300]}"/>
+                        </group>
+                     </group>
+                 </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--   Define custom action -->
+
+    <record id="customer_action" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="name">Customer Regestration</field>
+        <field name="res_model">customer</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="target">current</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create new item !
+            </p>
+        </field>
+    </record>
+    <!--   Create Top Menu  -->
+    <menuitem name="Loan Management" id="customer_top_menu"  sequence="1"/>
+
+    <menuitem name="Loan Management" parent="customer_top_menu" id="customer" sequence="1"/>
+
+    <menuitem name="Customer Registration Form" parent="customer" id="customer_details" action="customer_action" sequence="1"/>
+
+</odoo>
+

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Customer-->
+    <record id="paid_savings_tree_view" model="ir.ui.view">
+        <field name="name">paid_savings.tree.view</field>
+        <field name="model">paid_savings</field>
+        <field name="arch" type="xml">
+            <tree string="Paid Savings Information">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="customer_savings_name"/>
+                <field name="date_paid_savings"/>
+                <field name="customer_status"/>
+                <field name="total_savings"/>
+                <field name="savings_interest"/>
+                <field name="total_savings_interest"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Group-->
+    <record id="paid_savings_search_view" model="ir.ui.view">
+        <field name="name">paid_savings.search.view</field>
+         <field name="model">paid_savings</field>
+        <field name="arch" type="xml">
+            <search string="customer search">
+                <group expand="1" string="Group by ..">
+                    <filter name="date_paid_savings" string="Date" domain="[]" context="{'group_by':'date_paid_savings'}"/>
+                    <filter name="customer_id" string="ID" domain="[]" context="{'group_by':'customer_id'}"/>
+                </group>
+
+            <!-- Data Searching -->
+                <field name="date_paid_savings" string="Date" filter_domain="[('date_paid_savings', 'ilike', self)]"/>
+                <field name="customer_id" string="ID" filter_domain="[('customer_id', 'ilike', self)]"/>
+            </search>
+        </field>
+
+    </record>
+
+    <!-- Form View Of Customer  -->
+    <record id="paid_savings_form_view" model="ir.ui.view">
+        <field name="name">paid_savings.form.view</field>
+        <field name="model">paid_savings</field>
+        <field name="arch" type="xml">
+            <form>
+                 <sheet>
+                     <group>
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-2" style="padding-left:0px;">
+                                     <div style="border: 1px solid lightgray">
+                                         <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" width="50" height="50"/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-10" style="padding-top:0px; ">
+                                     <h3 class="text-primary">CUSTOMER WITHDRAW SAVINGS</h3>
+                                 </div>
+                            </div>
+                         </group>
+                     </group>
+                     <group>
+                        <group>
+                            <field name="name" placeholder="Search Customer"/>
+                            <field name="customer_id" placeholder="Customer ID"/>
+                            <field name="customer_savings_name" placeholder="Customer Name"/>
+                            <field name="date_paid_savings" placeholder="Select Date"/>
+                        </group>
+                        <group>
+                            <field name="total_savings" />
+                            <field name="savings_interest"/>
+                            <field name="total_savings_interest"/>
+                            <field name="customer_status" placeholder="Customer Status"/>
+                        </group>
+                     </group>
+                 </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--   Define custom action -->
+
+    <record id="paid_savings_action" model="ir.actions.act_window">
+        <field name="name">Customer Withdraw Savings</field>
+        <field name="res_model">paid_savings</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to Paid Customer Savings !
+            </p>
+        </field>
+    </record>
+    <!--   Create Top Menu  -->
+    <menuitem name="Customer Withdraw Savings" parent="customer_savings" id="paid_savings_top_menu"
+              action="paid_savings_action" sequence="3"/>
+</odoo>
+

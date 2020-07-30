@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Customer-->
+    <record id="paid_loan_tree_view" model="ir.ui.view">
+        <field name="name">paid_loan.tree.view</field>
+        <field name="model">paid_loan</field>
+        <field name="arch" type="xml">
+            <tree string="paid_loan Information">
+                <field name="name"/>
+                <field name="paid_ID"/>
+                <field name="paid_date"/>
+                <field name="cus_loan_take"/>
+                <field name="paid_amount"/>
+                <field name="available_loan"/>
+                <field name="paid_status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Group-->
+    <record id="paid_loan_search_view" model="ir.ui.view">
+        <field name="name">paid_loan.search.view</field>
+         <field name="model">paid_loan</field>
+        <field name="arch" type="xml">
+            <search string="customer search">
+                <group expand="1" string="Group by ..">
+                    <filter name="paid_ID" string="ID" domain="[]" context="{'group_by':'paid_ID'}"/>
+                    <filter name="paid_date" string="Date" domain="[]" context="{'group_by':'paid_date'}"/>
+                </group>
+    <!-- Filter -->
+                <!-- < age =20 -->
+<!--                <filter string="My Second Filter" name="c_age" domain="[('c_age', '&lt;', 20)]">-->
+<!--                </filter>-->
+
+<!--                <filter string="My First Filter" name="c_age" domain="[('c_age', '&gt;', 20)]">-->
+
+<!--                </filter>-->
+            <!-- Data Searching -->
+                <field name="paid_ID" string="ID" filter_domain="[('paid_ID', 'ilike', self)]"/>
+                <field name="paid_date" string="Date" filter_domain="[('paid_date', 'ilike', self)]"/>
+
+            </search>
+        </field>
+
+    </record>
+
+    <!-- Form View Of Customer  -->
+    <record id="paid_loan_form_view" model="ir.ui.view">
+        <field name="name">paid_loan.form.view</field>
+        <field name="model">paid_loan</field>
+        <field name="arch" type="xml">
+            <form>
+                 <sheet>
+                     <group>
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-2" style="padding-left:0px;">
+                                     <div style="border: 1px solid lightgray">
+                                         <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" width="50" height="50"/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-10" style="padding-top:0px; ">
+                                     <h3 class="text-primary">CUSTOMER LOAN PAID FORM</h3>
+                                 </div>
+                            </div>
+                         </group>
+                     </group>
+                     <group>
+                        <group>
+                            <field name="name" placeholder="Search Customer"/>
+                            <field name="paid_ID" placeholder="Loan ID"/>
+                            <field name="paid_date" placeholder="Paid Date"/>
+                            <field name="paid_status" placeholder="Paid Notes or Status"/>
+                        </group>
+                        <group>
+                            <field name="cus_loan_take"/>
+                            <field name="paid_amount"/>
+                            <field name="available_loan" readonly="1"/>
+                        </group>
+                     </group>
+                 </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--   Define custom action -->
+
+    <record id="paid_loan_action" model="ir.actions.act_window">
+        <field name="name">Paid Loan</field>
+        <field name="res_model">paid_loan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create new item !
+            </p>
+        </field>
+    </record>
+    <!--   Create Top Menu  -->
+    <menuitem name="Paid Loan" parent="customer" id="paid_loan_top_menu" action="paid_loan_action" sequence="4"/>
+</odoo>
+

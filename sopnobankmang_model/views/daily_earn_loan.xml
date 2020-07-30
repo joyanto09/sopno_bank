@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Customer-->
+    <record id="daily_earn_loan_tree_view" model="ir.ui.view">
+        <field name="name">daily_earn_loan.tree.view</field>
+        <field name="model">daily_earn_loan</field>
+        <field name="arch" type="xml">
+            <tree string="daily_earn_loan Information">
+                <field name="admin_name"/>
+                <field name="select_earn_date"/>
+                <field name="all_main_amount"/>
+                <field name="all_interest_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Group-->
+    <record id="daily_earn_loan_search_view" model="ir.ui.view">
+        <field name="name">daily_earn_loan.search.view</field>
+         <field name="model">daily_earn_loan</field>
+        <field name="arch" type="xml">
+            <search string="customer search">
+                <group expand="1" string="Group by ..">
+                    <filter name="select_earn_date" string="Date" domain="[]" context="{'group_by':'select_earn_date'}"/>
+<!--                    <filter name="savings_id" string="ID" domain="[]" context="{'group_by':'savings_id'}"/>-->
+                </group>
+
+            <!-- Data Searching -->
+                <field name="select_earn_date" string="Date" filter_domain="[('select_earn_date', 'ilike', self)]"/>
+<!--                <field name="savings_id" string="ID" filter_domain="[('savings_id', 'ilike', self)]"/>-->
+            </search>
+        </field>
+
+    </record>
+
+
+    <!-- Form View Of Customer  -->
+    <record id="daily_earn_loan_form_view" model="ir.ui.view">
+        <field name="name">daily_earn_loan.form.view</field>
+        <field name="model">daily_earn_loan</field>
+        <field name="arch" type="xml">
+            <form>
+                 <sheet>
+                     <group>
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-2" style="padding-left:0px;">
+                                     <div style="border: 1px solid lightgray">
+                                         <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" width="50" height="50"/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-10" style="padding-top:0px; ">
+                                     <h3 class="text-primary">DAILY EARNING LOAN AND INTEREST</h3>
+                                 </div>
+                            </div>
+                         </group>
+                     </group>
+                     <group>
+                        <group>
+                            <field name="admin_name" placeholder="Select Admin"/>
+                            <field name="select_earn_date" placeholder="Select Date"/>
+                        </group>
+                        <group>
+                            <field name="all_main_amount"/>
+                            <field name="all_interest_amount"/>
+                        </group>
+                     </group>
+                 </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--   Define custom action -->
+
+    <record id="daily_earn_loan_action" model="ir.actions.act_window">
+        <field name="name">Daily Earning</field>
+        <field name="res_model">daily_earn_loan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to show daily earn status !
+            </p>
+        </field>
+    </record>
+    <!--   Create Top Menu  -->
+    <menuitem name="Daily Earn Loan and Interest" parent="customer_payment" id="daily_earn_loan_top_menu" action="daily_earn_loan_action" sequence="3"/>
+</odoo>
+

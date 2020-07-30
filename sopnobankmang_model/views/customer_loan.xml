@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Customer-->
+    <record id="customer_loan_tree_view" model="ir.ui.view">
+        <field name="name">customer_loan.tree.view</field>
+        <field name="model">customer_loan</field>
+        <field name="arch" type="xml">
+            <tree string="customer_loan Information">
+                <field name="name"/>
+<!--                <field name="cus_loan_id"/>-->
+                <field name="cus_loan_acid"/>
+                <field name="cus_loan_name"/>
+                <field name="cus_loan_date"/>
+                <field name="cus_loan_amount"/>
+                <field name="cus_loan_interest"/>
+                <field name="cus_loan_total"/>
+                <field name="cus_loan_duration"/>
+                <field name="cus_loan_year"/>
+                <field name="cus_status"/>
+<!--                <field name="l_amount"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <!-- Group-->
+    <record id="customer_loan_search_view" model="ir.ui.view">
+        <field name="name">customer_loan.search.view</field>
+         <field name="model">customer_loan</field>
+        <field name="arch" type="xml">
+            <search string="customer search">
+                <group expand="1" string="Group by ..">
+                    <filter name="cus_loan_name" string="Name" domain="[]" context="{'group_by':'cus_loan_name'}"/>
+                    <filter name="cus_loan_acid" string="ID" domain="[]" context="{'group_by':'cus_loan_acid'}"/>
+                </group>
+
+            <!-- Data Searching -->
+                <field name="cus_loan_name" string="Name" filter_domain="[('cus_loan_name', 'ilike', self)]"/>
+                <field name="cus_loan_acid" string="ID" filter_domain="[('cus_loan_acid', 'ilike', self)]"/>
+
+            </search>
+        </field>
+
+    </record>
+
+    <!-- Form View Of Customer  -->
+    <record id="customer_loan_form_view" model="ir.ui.view">
+        <field name="name">customer_loan.form.view</field>
+        <field name="model">customer_loan</field>
+        <field name="arch" type="xml">
+            <form>
+                 <sheet>
+                     <group>
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-2" style="padding-left:0px;">
+                                     <div style="border: 1px solid lightgray">
+                                         <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" width="50" height="50"/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-10" style="padding-top:0px; ">
+                                     <h3 class="text-primary">CUSTOMER LOAN TAKEN FORM</h3>
+                                 </div>
+                            </div>
+                         </group>
+                     </group>
+                     <group>
+                        <group>
+<!--                            <field name="cus_loan_id"/>-->
+                            <field name="name" placeholder="Search Customer" options="{'no_create': True, 'no_create_edit':True}"/>
+                            <field name="cus_loan_acid" placeholder="For Example: 2001"/>
+                            <field name="cus_loan_name" placeholder="Customer Name"/>
+                            <field name="cus_loan_date" placeholder="Select Date"/>
+                            <field name="cus_loan_year" placeholder="Select Year"/>
+                            <field name="cus_loan_duration" placeholder="Select Duration of loan "/>
+                        </group>
+                        <group>
+                            <field name="cus_loan_amount" placeholder="Enter Loan Amount"/>
+                            <field name="cus_loan_interest" placeholder="Interest Amount"/>
+                            <field name="cus_loan_total" placeholder="Total Loan"/>
+                            <field name="cus_status" placeholder="Select Status"/>
+<!--                            <field name="l_amount"/>-->
+                        </group>
+                     </group>
+                 </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+
+    <record id="customer_loan_graph_view" model="ir.ui.view">
+        <field name="name">customer.loan.graph</field>
+        <field name="model">customer_loan</field>
+        <field name="arch" type="xml">
+            <graph string="Graph View" type="bar">
+                <field name="cus_loan_date"/>
+                <field name="cus_loan_amount" interval="day" />
+                <field name="cus_loan_duration"/>
+                <!-- <field name="mesaure" type="measure"/> -->
+            </graph>
+        </field>
+    </record>
+
+    <!--   Define custom action -->
+
+    <record id="customer_loan_action" model="ir.actions.act_window">
+        <field name="name">Customer Loan</field>
+        <field name="res_model">customer_loan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create new item !
+            </p>
+        </field>
+    </record>
+    <!--   Create Top Menu  -->
+    <menuitem name="Customer Loan" parent="customer" id="customer_loan_top_menu" action="customer_loan_action" sequence="2"/>
+</odoo>
+

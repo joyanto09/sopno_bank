@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Customer-->
+    <record id="annual_income_tree_view" model="ir.ui.view">
+        <field name="name">annual_income.tree.view</field>
+        <field name="model">annual_income</field>
+        <field name="arch" type="xml">
+            <tree string="annual_income Information">
+                <field name="admin_name"/>
+                <field name="annual_estimate_date"/>
+                <field name="estimate_cash_year"/>
+                <field name="annual_income"/>
+                <field name="annual_expense"/>
+                <field name="total_annual_income"/>
+                <field name="annual_notes"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Group-->
+    <record id="annual_income_search_view" model="ir.ui.view">
+        <field name="name">annual_income.search.view</field>
+         <field name="model">annual_income</field>
+        <field name="arch" type="xml">
+            <search string="admin search">
+                <group expand="1" string="Group by ..">
+                    <filter name="annual_estimate_date" string="Date" domain="[]" context="{'group_by':'annual_estimate_date'}"/>
+                    <filter name="estimate_cash_year" string="Estimate Year" domain="[]" context="{'group_by':'estimate_cash_year'}"/>
+                </group>
+
+            <!-- Data Searching -->
+                <field name="annual_estimate_date" string="Date" filter_domain="[('annual_estimate_date', 'ilike', self)]"/>
+                <field name="estimate_cash_year" string="Estimate Year" filter_domain="[('estimate_cash_year', 'ilike', self)]"/>
+
+            </search>
+        </field>
+
+    </record>
+
+    <!-- Form View Of Customer  -->
+    <record id="annual_income_form_view" model="ir.ui.view">
+        <field name="name">annual_income.form.view</field>
+        <field name="model">annual_income</field>
+        <field name="arch" type="xml">
+            <form>
+                 <sheet>
+                     <group>
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-2" style="padding-left:0px;">
+                                     <div style="border: 1px solid lightgray">
+                                         <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" width="50" height="50"/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-10" style="padding-top:0px; ">
+                                     <h3 class="text-primary">ANNUAL INCOME CALCULATION </h3>
+                                 </div>
+                            </div>
+                         </group>
+                     </group>
+                     <group>
+                        <group>
+                            <field name="admin_name" placeholder="Select Admin"/>
+                            <field name="annual_estimate_date" placeholder="Select Date"/>
+                            <field name="estimate_cash_year" placeholder="Select Year"/>
+                            <field name="annual_notes" placeholder="Notes Down Here"/>
+                        </group>
+                        <group>
+                            <field name="annual_income"/>
+                            <field name="annual_expense"/>
+                            <field name="total_annual_income"/>
+                        </group>
+                     </group>
+                 </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--   Define custom action -->
+
+    <record id="annual_income_action" model="ir.actions.act_window">
+        <field name="name">Annual Cash a Year</field>
+        <field name="res_model">annual_income</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create new item !
+            </p>
+        </field>
+    </record>
+    <!--   Create Top Menu  -->
+<!--    <menuitem name="Customer Savings" id="customer_top_menu"  sequence="2"/>-->
+    <menuitem name="Annual Cash a Year " parent="daily_earn_cash" id="annual_income_top_menu"
+              action="annual_income_action" sequence="3"/>
+</odoo>
+

@@ -1,0 +1,40 @@
+<odoo>
+    <record model="ir.ui.view" id="cusotmer_payment_report_wizard">
+        <field name="name">Customer Payment Report</field>
+        <field name="model">customer.payment.report.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Customer Payment Report">
+                <group>
+                    <group>
+                        <field name="customer_account_no"/>
+                    </group>
+                    <group>
+                        <field name="customer_all_data"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="get_report" string="Get Report" type="object" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_customer_payment_report_wizard"
+                name="Customer Payment Report"
+                res_model="customer.payment.report.wizard"
+                view_mode="form"
+                target="new"/>
+
+    <menuitem name="Loan Report" id="all_loan_report"  sequence="2"/>
+
+    <menuitem name="Reporting" parent="all_loan_report" id="loan_reporting" sequence="1"/>
+
+    <menuitem name="Customer Payment Report" parent="all_loan_report" id="customer_payment_report_menu" action="action_customer_payment_report_wizard" sequence="1"/>
+
+
+<!--    <menuitem action="action_attendance_report_wizard"-->
+<!--              id="menu_attendance_report_wizard"-->
+<!--              parent="hr_attendance.menu_hr_attendance_report"/>-->
+</odoo>

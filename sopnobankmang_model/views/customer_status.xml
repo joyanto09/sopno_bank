@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Customer-->
+    <record id="customer_status_tree_view" model="ir.ui.view">
+        <field name="name">customer_status.tree.view</field>
+        <field name="model">customer_status</field>
+        <field name="arch" type="xml">
+            <tree string="customer_status Information">
+                <field name="name"/>
+                <field name="cus_search_loan"/>
+                <field name="cus_search_interest"/>
+                <field name="cus_paid_tilltoday"/>
+                <field name="cus_paid_interest"/>
+                <field name="cus_due_pay"/>
+                <field name="cus_due_interest"/>
+            </tree>
+        </field>
+    </record>
+
+<!--    &lt;!&ndash; Group&ndash;&gt;-->
+<!--    <record id="customer_loan_search_view" model="ir.ui.view">-->
+<!--        <field name="name">customer_loan.search.view</field>-->
+<!--         <field name="model">customer_loan</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <search string="customer search">-->
+<!--                <group expand="1" string="Group by ..">-->
+<!--                    <filter name="cus_loan_name" string="Name" domain="[]" context="{'group_by':'cus_loan_name'}"/>-->
+<!--                    <filter name="cus_loan_acid" string="Age" domain="[]" context="{'group_by':'cus_loan_acid'}"/>-->
+<!--                </group>-->
+<!--    &lt;!&ndash; Filter &ndash;&gt;-->
+<!--                &lt;!&ndash; < age =20 &ndash;&gt;-->
+<!--&lt;!&ndash;                <filter string="My Second Filter" name="c_age" domain="[('c_age', '&lt;', 20)]">&ndash;&gt;-->
+<!--&lt;!&ndash;                </filter>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <filter string="My First Filter" name="c_age" domain="[('c_age', '&gt;', 20)]">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                </filter>&ndash;&gt;-->
+<!--            &lt;!&ndash; Data Searching &ndash;&gt;-->
+<!--                <field name="cus_loan_name" string="Name" filter_domain="[('cus_loan_name', 'ilike', self)]"/>-->
+<!--                <field name="cus_loan_acid" string="Age" filter_domain="[('cus_loan_acid', 'ilike', self)]"/>-->
+
+<!--            </search>-->
+<!--        </field>-->
+
+<!--    </record>-->
+
+    <!-- Form View Of Customer  -->
+    <record id="customer_status_form_view" model="ir.ui.view">
+        <field name="name">customer_status.form.view</field>
+        <field name="model">customer_status</field>
+        <field name="arch" type="xml">
+            <form>
+                 <sheet>
+                     <group>
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-2" style="padding-left:0px;">
+                                     <div style="border: 1px solid lightgray">
+                                         <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" width="50" height="50"/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-10" style="padding-top:0px; ">
+                                     <h3 class="text-primary">CUSTOMER PAYMENT STATUS</h3>
+                                 </div>
+                            </div>
+                         </group>
+                     </group>
+                     <group>
+                        <group>
+                            <field name="name" placeholder="Search Customer"/>
+                        </group>
+                        <group>
+                            <field name="cus_search_loan" readonly="1"/>
+                            <field name="cus_paid_tilltoday" readonly="1"/>
+                            <field name="cus_due_pay" readonly="1"/>
+                            <field name="cus_search_interest" readonly="1"/>
+                            <field name="cus_paid_interest" readonly="1"/>
+                            <field name="cus_due_interest" readonly="1"/>
+                        </group>
+                     </group>
+                 </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--   Define custom action -->
+
+    <record id="customer_status_action" model="ir.actions.act_window">
+        <field name="name">Payment Status</field>
+        <field name="res_model">customer_status</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to show customer status !
+            </p>
+        </field>
+    </record>
+    <!--   Create Top Menu  -->
+    <menuitem name="Customer Payment Status" parent="customer_payment" id="customer_status_top_menu" action="customer_status_action" sequence="2"/>
+</odoo>
+

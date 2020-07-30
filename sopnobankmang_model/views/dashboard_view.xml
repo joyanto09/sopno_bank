@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Customer-->
+
+    <!-- Form View Of Customer  -->
+    <record id="dashboard_form_view" model="ir.ui.view">
+        <field name="name">dash_board.form.view</field>
+        <field name="model">dash_board</field>
+        <field name="arch" type="xml">
+            <form create="false">
+<!--                 <sheet>-->
+<!--                     <group>-->
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-12" style="padding-left:0px;">
+                                     <div class="col-xs-3" style="padding-left:0px">
+                                         <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" width="112" height="112" class="img-thumbnail"/>
+                                     </div>
+                                     <div class="col-xs-6" style="">
+                                         <h1 class="text-center">স্বপ্নছোঁয়া সমবায় সংস্থা</h1>
+                                         <h2 class="text-center">"৪ নং ওয়ার্ড রংপুর সিটি কর্পোরেশন"</h2>
+                                         <h3 class="text-center" style=" margin-top: 0; margin-bottom: 0;">-: রংপুর :-</h3>
+                                     </div>
+                                     <div class="col-xs-3" style="">
+                                     </div>
+                                 </div>
+<!--                                 <div class="col-xs-10" style="padding-top:0px; ">-->
+<!--                                     <h3 class="text-primary">ANNUAL INCOME CALCULATION</h3>-->
+<!--                                 </div>-->
+                            </div>
+                         </group>
+<!--                     </group>-->
+                     <group>
+                        <group>
+                        </group>
+                        <group>
+<!--                            <button name="send_message" type="object" string="Send Message"></button>-->
+                        </group>
+                     </group>
+<!--                 </sheet>-->
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--   Define custom action -->
+
+    <record id="dashboard_action" model="ir.actions.act_window">
+        <field name="name">Dash Board</field>
+        <field name="res_model">dash_board</field>
+        <field name="view_type">form</field>
+        <field name="target">inline</field>
+        <field name="view_mode">form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create new item !
+            </p>
+        </field>
+    </record>
+    <!--   Create Top Menu  -->
+    <menuitem name="Dash Board" parent="customer_top_menu" id="dashboard" action="dashboard_action" sequence="-1"/>
+<!--    <menuitem name="Customer Savings" id="customer_top_menu"  sequence="2"/>-->
+<!--    <menuitem name="Dash board " parent="dashboard" id="dashboard2"-->
+<!--              action="dashboard_action" sequence="1"/>-->
+</odoo>
+
+
+

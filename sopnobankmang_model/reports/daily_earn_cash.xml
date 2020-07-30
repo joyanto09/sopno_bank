@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--        groups="sale.group_proforma_sales"-->
+<!--    print_report_name="'PRO-FORMA - %s' % (object.name)"-->
+        <report
+            id="action_cus_report9"
+            string="Daily Earn Cash Report"
+            model="daily_earn_drawer"
+            report_type="qweb-html"
+            file="sopnobankmang_model.report_cus_repot9"
+            name="sopnobankmang_model.report_cus_repot9"
+        />
+
+        <template id="report_cus_repot9">
+            <t t-call="web.html_container">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+
+                            <div class="container">
+
+                                <h3 class="text-center a">Swapnochoa Consumers Co-Operative Society Limited</h3>
+                                <h4 class="text-center">Amasu Kukrul, Ward no: 04, Rangpur City Corporation</h4>
+                                <h5 class="text-center" >RANGPUR</h5><br/>
+
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h5 class="text-left"><u><strong>Daily Earning Cash</strong></u></h5>
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <h5><u><strong>Print Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y %H:%M')"/>
+                                            </strong></u></h5>
+                                        </div>
+                                    </div><br/><br/><br/><br/>
+
+                                    <t t-set="earn_main_cash" t-value="0"/>
+                                    <t t-set="earn_day_savings" t-value="0"/>
+                                    <t t-set="worth_day_savings" t-value="0"/>
+                                    <t t-set="perday_interest" t-value="0"/>
+                                    <t t-set="company_expense" t-value="0"/>
+                                    <t t-set="total_amount1" t-value="0"/>
+                                    <t t-set="total_amount2" t-value="0"/>
+                                    <t t-set="total_amount3" t-value="0"/>
+                                    <t t-set="total_amount4" t-value="0"/>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Accountant Name</th>
+                                                <th class="text-center">Earning Date</th>
+                                                <th class="text-center">Earning Year</th>
+                                                <th class="text-center">Earn Main Amount</th>
+                                                <th class="text-center">Earn Savings</th>
+                                                <th class="text-center">Worth Savings</th>
+                                                <th class="text-center">Earn Interest</th>
+                                                <th class="text-center">Company Expense</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                            <tr t-foreach="docs" t-as="t">
+                                                <td><span t-esc="t.admin_name"/></td>
+                                                <td><span t-esc="t.earn_cash_date"/></td>
+                                                <td><span t-esc="t.earn_cash_year"/></td>
+                                                <td><span t-esc="t.earn_main_cash"/></td>
+                                                <td><span t-esc="t.earn_day_savings"/></td>
+                                                <td><span t-esc="t.worth_day_savings"/></td>
+                                                <td><span t-esc="t.perday_interest"/></td>
+                                                <td><span t-esc="t.company_expense"/></td>
+                                                <t t-set="earn_main_cash" t-value="earn_main_cash + t.earn_main_cash"/>
+                                                <t t-set="earn_day_savings" t-value="earn_day_savings + t.earn_day_savings"/>
+                                                <t t-set="worth_day_savings" t-value="worth_day_savings + t.worth_day_savings"/>
+                                                <t t-set="perday_interest" t-value="perday_interest + t.perday_interest"/>
+                                                <t t-set="company_expense" t-value="company_expense + t.company_expense"/>
+                                                <t t-set="total_amount1" t-value="earn_main_cash + earn_day_savings"/>
+                                                <t t-set="total_amount2" t-value="total_amount1 - worth_day_savings"/>
+                                                <t t-set="total_amount3" t-value="perday_interest - company_expense"/>
+                                                <t t-set="total_amount4" t-value="total_amount2 + total_amount3 "/>
+                                            </tr>
+<!--                                            <tr>-->
+<!--                                                <td colspan="3"></td>-->
+<!--                                                <td><p class="text-center"><strong>Total Earn Per Day</strong></p></td>-->
+<!--                                                <td><strong><span t-esc="total_mainamnt"/>.00 Tk</strong></td>-->
+<!--                                                <td><strong><span t-esc="total_intramnt"/>.00 Tk</strong></td>-->
+<!--                                            </tr>-->
+                                        </tbody>
+
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="col-xs-6">
+                                                <hr/>
+                                                <h5 class="text-left"><strong>Subtotal Interest</strong></h5>
+                                                <h5 class="text-left"><strong>Company Expense </strong></h5>
+                                                <hr/>
+                                                <h5 class="text-left"><strong>Total </strong></h5>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <hr/>
+                                                <h5 class="text-right"><strong><span t-esc="perday_interest"/>.00 Tk</strong></h5>
+                                                <h5 class="text-right"><strong>(-) <span t-esc="company_expense"/>.00 Tk</strong></h5>
+                                                <hr/>
+                                                <h5 class="text-right"><strong><span t-esc="total_amount3"/>.00 Tk</strong></h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 ">
+                                            <div class="col-xs-6">
+                                                <hr/>
+                                                <h5 class="text-left"><strong>Subtotal Main+Savings</strong></h5>
+                                                <h5 class="text-left"><strong>Worth Savings </strong></h5>
+                                                <hr/>
+                                                <h5 class="text-left"><strong>Total </strong></h5>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <hr/>
+                                                <h5 class="text-right"><strong><span t-esc="total_amount1"/>.00 Tk</strong></h5>
+                                                <h5 class="text-right"><strong>(-) <span t-esc="worth_day_savings"/>.00 Tk</strong></h5>
+                                                <hr/>
+                                                <h5 class="text-right"><strong><span t-esc="total_amount2"/>.00 Tk</strong></h5>
+                                            </div>
+                                        </div>
+                                    </div><br/>
+                                    <div class="row">
+                                        <div class="col-xs-6 ">
+
+                                        </div>
+                                        <div class="col-xs-6 ">
+                                            <div class="col-xs-6">
+                                                <hr/>
+                                                <h5 class="text-left"><strong>Subtotal Amount</strong></h5>
+                                                <hr/>
+                                                <h5 class="text-left"><strong>Per day Earning</strong></h5>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <hr/>
+                                                <h5 class="text-right"><strong><span t-esc="total_amount4"/>.00 Tk</strong></h5>
+                                                <hr/>
+                                                <h5 class="text-right"><strong><span t-esc="total_amount4"/>.00 Tk</strong></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <br/><br/><br/><br/><br/>
+
+
+                                    <div class="Footer">
+                                        <div class="row">
+                                        <div class="col-xs-4">
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <p class="text-left">-----------------------------</p>
+                                            <p class="text-left">Accountant Signature</p>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <br/>
+                                            <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" class="img-responsive center-block"
+                                                 width="100" height="100"/>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <p class="text-right">----------------------------</p>
+                                            <p class="text-right">Moderator Signature</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+<!--                    <t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>-->
+            </t>
+        </template>
+</odoo>

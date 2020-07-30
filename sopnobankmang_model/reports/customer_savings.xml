@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--        groups="sale.group_proforma_sales"-->
+<!--    print_report_name="'PRO-FORMA - %s' % (object.name)"-->
+        <report
+            id="action_cus_report6"
+            string="Customer Savings Report"
+            model="customer_savings"
+            report_type="qweb-html"
+            file="sopnobankmang_model.report_cus_repot6"
+            name="sopnobankmang_model.report_cus_repot6"
+        />
+
+        <template id="report_cus_repot6">
+            <t t-call="web.html_container">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+
+                            <div class="container">
+
+                                <h3 class="text-center a">Swapnochoa Consumers Co-Operative Society Limited</h3>
+                                <h4 class="text-center">Amasu Kukrul, Ward no: 04, Rangpur City Corporation</h4>
+                                <h5 class="text-center" >RANGPUR</h5><br/>
+
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h5 class="text-left"><u><strong>Daily Savings Details</strong></u></h5>
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <h5><u><strong>Print Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y %H:%M')"/>
+                                            </strong></u></h5><br/><br/>
+                                        </div>
+                                    </div>
+
+                                    <t t-set="savings_amount" t-value="0"/>
+                                    <t t-set="worth_amount" t-value="0"/>
+                                    <t t-set="total_savings_amount" t-value="0"/>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Savings Date</th>
+                                                <th class="text-center">Savings Acc No</th>
+                                                <th class="text-center">Savings Name</th>
+                                                <th class="text-center">Earn Savings</th>
+                                                <th class="text-center">Worth Savings</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                            <tr t-foreach="docs" t-as="t">
+                                                <td><span t-esc="t.savings_date"/></td>
+                                                <td><span t-esc="t.savings_id"/></td>
+                                                <td><span t-esc="t.savings_name"/></td>
+                                                <td><span t-esc="t.savings_amount"/></td>
+                                                <td><span t-esc="t.worth_amount"/></td>
+                                                <t t-set="savings_amount" t-value="savings_amount + t.savings_amount"/>
+                                                <t t-set="worth_amount" t-value="worth_amount + t.worth_amount"/>
+                                                <t t-set="total_savings_amount" t-value="savings_amount - worth_amount"/>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"></td>
+                                                <td><p class="text-center"><strong>Total</strong></p></td>
+                                                <td><strong><span t-esc="savings_amount"/>.00 Tk</strong></td>
+                                                <td><strong><span t-esc="worth_amount"/>.00 Tk</strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"></td>
+                                                <td><p class="text-center"><strong>Total Savings a Day</strong></p></td>
+                                                <td><strong><span t-esc="total_savings_amount"/>.00 Tk</strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table><br/><br/><br/><br/><br/>
+
+                                    <div class="Footer">
+                                        <div class="row">
+                                        <div class="col-xs-4">
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <p class="text-left">-----------------------------</p>
+                                            <p class="text-left">Accountant Signature</p>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <br/>
+                                            <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" class="img-responsive center-block"
+                                                 width="100" height="100"/>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <p class="text-right">----------------------------</p>
+                                            <p class="text-right">Moderator Signature</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+<!--                    <t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>-->
+            </t>
+        </template>
+</odoo>

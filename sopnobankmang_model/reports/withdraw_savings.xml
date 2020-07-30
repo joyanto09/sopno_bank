@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--        groups="sale.group_proforma_sales"-->
+<!--    print_report_name="'PRO-FORMA - %s' % (object.name)"-->
+        <report
+            id="action_cus_report7"
+            string="Withdraw Savings Report"
+            model="paid_savings"
+            report_type="qweb-html"
+            file="sopnobankmang_model.report_cus_repot7"
+            name="sopnobankmang_model.report_cus_repot7"
+        />
+
+        <template id="report_cus_repot7">
+            <t t-call="web.html_container">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+
+                            <div class="container">
+
+                                <h3 class="text-center a">Swapnochoa Consumers Co-Operative Society Limited</h3>
+                                <h4 class="text-center">Amasu Kukrul, Ward no: 04, Rangpur City Corporation</h4>
+                                <h5 class="text-center" >RANGPUR</h5><br/>
+
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h5 class="text-left"><u><strong>Customer Withdraw Savings</strong></u></h5>
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <h5><u><strong>Print Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y %H:%M')"/>
+                                            </strong></u></h5><br/><br/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-8" t-foreach="docs" t-as="t" >
+
+                                            <div class="col-xs-4">
+                                                <lebel><h5>Account NO </h5></lebel>
+                                                <lebel><h5>Customer Name </h5></lebel>
+                                                <lebel><h5>Customer Status </h5></lebel>
+    <!--                                            <lebel>Address </lebel><br/>-->
+    <!--                                            <lebel>Class </lebel><br/>-->
+    <!--                                            <lebel>Phone Number </lebel>-->
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <h5>:  <span t-esc="t.customer_id"/></h5>
+                                                <h5>:  <span t-esc="t.customer_savings_name"/></h5>
+                                                <h5>:  <span t-esc="t.customer_status"/></h5><br/><br/><br/><br/><br/><br/>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-2">
+
+                                        </div>
+                                        <div class="col-xs-2" t-foreach="docs" t-as="t">
+
+                                        </div>
+                                    </div>
+
+                                    <t t-set="total_fee" t-value="0"/>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Withdraw Date</th>
+                                                <th class="text-center">Customer Savings</th>
+                                                <th class="text-center">25% Interest of Savings</th>
+                                                <th class="text-center">Total Payable Savings</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                            <tr t-foreach="docs" t-as="t">
+                                                <td><span t-esc="t.date_paid_savings"/></td>
+                                                <td><span t-esc="t.total_savings"/>.00 Tk</td>
+                                                <td><span t-esc="t.savings_interest"/>.00 Tk</td>
+                                                <td><span t-esc="t.total_savings_interest"/>.00 Tk</td>
+                                            </tr>
+                                        </tbody>
+                                    </table><br/><br/>
+                                    <div t-foreach="docs" t-as="t" >
+                                        <h5> আমি এই মর্মে প্রকাশ করিতেছি  যে,  আমি "স্বপ্ন ছোয়া সমবায় সংস্থার" মাধ্যমে আমার জমাকৃত <u><strong><span t-esc="t.total_savings"/>.00</strong></u>
+                                            টাকার <u><strong>২৫%</strong></u> হারে লাভে  আসলে মোট <u><strong><span t-esc="t.total_savings_interest"/>.00</strong></u> টাকা বুঝিয়া পেয়েছি।</h5><br/>
+                                        <h5><strong>অতএব,</strong> </h5>
+                                        <h5><u><strong>সপ্ন ছোয়া সমবায় সংস্থার</strong></u> নিকট আমার কোনোরূপ জমাকৃত অর্থ নাই। </h5>
+                                    <br/><br/><br/><br/><br/><br/><br/><br/>
+                                    </div>
+
+                                    <div class="Footer">
+                                        <div class="row">
+                                        <div class="col-xs-4">
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <p class="text-left">-----------------------</p>
+                                            <p class="text-left">Author Signature</p>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <br/>
+                                            <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" class="img-responsive center-block"
+                                                 width="100" height="100"/>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <p class="text-right">---------------------------</p>
+                                            <p class="text-right">Customer Signature</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+<!--                    <t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>-->
+            </t>
+        </template>
+</odoo>

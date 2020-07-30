@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Customer-->
+    <record id="daily_cash_drawer_tree_view" model="ir.ui.view">
+        <field name="name">daily_cash_drawer.tree.view</field>
+        <field name="model">daily_cash_drawer</field>
+        <field name="arch" type="xml">
+            <tree string="daily_cash_drawer Information">
+                <field name="admin_name"/>
+                <field name="cash_date"/>
+                <field name="cash_year"/>
+                <field name="earn_cash"/>
+                <field name="expense_loan"/>
+                <field name="expense_savings"/>
+                <field name="daily_cash_drawer"/>
+                <field name="final_cash"/>
+                <field name="admin_pockets_pay"/>
+                <field name="admins_comment"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Group-->
+    <record id="daily_cash_drawer_search_view" model="ir.ui.view">
+        <field name="name">daily_cash_drawer.search.view</field>
+         <field name="model">daily_cash_drawer</field>
+        <field name="arch" type="xml">
+            <search string="admin search">
+                <group expand="1" string="Group by ..">
+                    <filter name="cash_date" string="Date" domain="[]" context="{'group_by':'cash_date'}"/>
+                    <filter name="cash_year" string="Year" domain="[]" context="{'group_by':'cash_year'}"/>
+                </group>
+
+            <!-- Data Searching -->
+                <field name="cash_date" string="Date" filter_domain="[('cash_date', 'ilike', self)]"/>
+                <field name="cash_year" string="Year" filter_domain="[('cash_year', 'ilike', self)]"/>
+
+            </search>
+        </field>
+
+    </record>
+
+    <!-- Form View Of Customer  -->
+    <record id="daily_cash_drawer_form_view" model="ir.ui.view">
+        <field name="name">daily_cash_drawer.form.view</field>
+        <field name="model">daily_cash_drawer</field>
+        <field name="arch" type="xml">
+            <form>
+                 <sheet>
+                     <group>
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-2" style="padding-left:0px;">
+                                     <div style="border: 1px solid lightgray">
+                                         <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" width="50" height="50"/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-10" style="padding-top:0px; ">
+                                     <h3 class="text-primary">FINAL CASH CALCULATION</h3>
+                                 </div>
+                            </div>
+                         </group>
+                     </group>
+                     <group>
+                        <group>
+                            <field name="admin_name" placeholder="Select Admin"/>
+                            <field name="cash_date" placeholder="Select Date"/>
+                            <field name="cash_year" placeholder="Select Year"/>
+                            <field name="admins_comment" placeholder="Admins Comment"/>
+                        </group>
+                        <group>
+                            <field name="earn_cash"/>
+                            <field name="expense_loan"/>
+                            <field name="expense_savings"/>
+                            <field name="daily_cash_drawer"/>
+                            <field name="final_cash"/>
+                            <field name="admin_pockets_pay"/>
+                        </group>
+                     </group>
+                 </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--   Define custom action -->
+
+    <record id="daily_cash_drawer_action" model="ir.actions.act_window">
+        <field name="name">Final Cash Drawer</field>
+        <field name="res_model">daily_cash_drawer</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create new item !
+            </p>
+        </field>
+    </record>
+    <!--   Create Top Menu  -->
+<!--    <menuitem name="Customer Savings" id="customer_top_menu"  sequence="2"/>-->
+
+    <menuitem name="Daily Earn Cash" parent="customer_top_menu" id="daily_earn_cash" sequence="4"/>
+    <menuitem name="Final Cash Drawer " parent="daily_earn_cash" id="daily_cash_drawer_top_menu"
+              action="daily_cash_drawer_action" sequence="2"/>
+</odoo>
+

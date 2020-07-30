@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Customer-->
+    <record id="customer_savings_tree_view" model="ir.ui.view">
+        <field name="name">customer_savings.tree.view</field>
+        <field name="model">customer_savings</field>
+        <field name="arch" type="xml">
+            <tree string="customer_savings Information">
+                <field name="name"/>
+                <field name="cus_id"/>
+                <field name="savings_id"/>
+                <field name="savings_name"/>
+                <field name="savings_date"/>
+                <field name="savings_amount"/>
+                <field name="worth_amount"/>
+                <field name="totalsavings"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Group-->
+    <record id="customer_savings_search_view" model="ir.ui.view">
+        <field name="name">customer_savings.search.view</field>
+         <field name="model">customer_savings</field>
+        <field name="arch" type="xml">
+            <search string="customer search">
+                <group expand="1" string="Group by ..">
+                    <filter name="savings_date" string="Date" domain="[]" context="{'group_by':'savings_date'}"/>
+                    <filter name="savings_id" string="ID" domain="[]" context="{'group_by':'savings_id'}"/>
+                </group>
+
+            <!-- Data Searching -->
+                <field name="savings_date" string="Date" filter_domain="[('savings_date', 'ilike', self)]"/>
+                <field name="savings_id" string="ID" filter_domain="[('savings_id', 'ilike', self)]"/>
+
+            </search>
+        </field>
+
+    </record>
+
+    <!-- Form View Of Customer  -->
+    <record id="customer_savings_form_view" model="ir.ui.view">
+        <field name="name">customer_savings.form.view</field>
+        <field name="model">customer_savings</field>
+        <field name="arch" type="xml">
+            <form>
+                 <sheet>
+                     <group>
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-2" style="padding-left:0px;">
+                                     <div style="border: 1px solid lightgray">
+                                         <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" width="50" height="50"/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-10" style="padding-top:0px; ">
+                                     <h3 class="text-primary">CUSTOMER SAVINGS FORM</h3>
+                                 </div>
+                            </div>
+                         </group>
+                     </group>
+                     <group>
+                        <group>
+                            <field name="name" placeholder="Search Customer"/>
+                            <field name="cus_id" invisible="1"/>
+                            <field name="savings_id"/>
+                            <field name="savings_name"/>
+                            <field name="savings_date"/>
+                        </group>
+                        <group>
+                            <field name="savings_amount"/>
+                            <field name="worth_amount"/>
+                            <field name="totalsavings"/>
+                        </group>
+                     </group>
+                 </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--   Define custom action -->
+
+    <record id="customer_savings_action" model="ir.actions.act_window">
+        <field name="name">Customer Savings</field>
+        <field name="res_model">customer_savings</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create new item !
+            </p>
+        </field>
+    </record>
+    <!--   Create Top Menu  -->
+<!--    <menuitem name="Customer Savings" id="customer_top_menu"  sequence="2"/>-->
+
+    <menuitem name="Customer Savings" parent="customer_top_menu" id="customer_savings" sequence="3"/>
+
+    <menuitem name="Customer Savings Form" parent="customer_savings" id="customer_savings_details" action="customer_savings_action" sequence="1"/>
+</odoo>
+

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--        groups="sale.group_proforma_sales"-->
+<!--    print_report_name="'PRO-FORMA - %s' % (object.name)"-->
+        <report
+            id="action_cus_report5"
+            string="Daily Earn Loan and Interest Report"
+            model="daily_earn_loan"
+            report_type="qweb-html"
+            file="sopnobankmang_model.report_cus_repot5"
+            name="sopnobankmang_model.report_cus_repot5"
+        />
+
+        <template id="report_cus_repot5">
+            <t t-call="web.html_container">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+
+                            <div class="container">
+
+                                <h3 class="text-center a">Swapnochoa Consumers Co-Operative Society Limited</h3>
+                                <h4 class="text-center">Amasu Kukrul, Ward no: 04, Rangpur City Corporation</h4>
+                                <h5 class="text-center" >RANGPUR</h5><br/>
+
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h5 class="text-left"><u><strong>Daily Earning Loan And Interest</strong></u></h5>
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <h5><u><strong>Print Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y %H:%M')"/>
+                                            </strong></u></h5>
+                                        </div>
+                                    </div><br/><br/><br/><br/>
+
+                                    <t t-set="all_main_amount" t-value="0"/>
+                                    <t t-set="all_interest_amount" t-value="0"/>
+                                    <t t-set="total_amount" t-value="0"/>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Accountant Name</th>
+                                                <th class="text-center">Earning Date</th>
+                                                <th class="text-center">Earn Main Amount</th>
+                                                <th class="text-center">Earn Interest Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                            <tr t-foreach="docs" t-as="t">
+                                                <td><span t-esc="t.admin_name"/></td>
+                                                <td><span t-esc="t.select_earn_date"/></td>
+                                                <td><span t-esc="t.all_main_amount"/></td>
+                                                <td><span t-esc="t.all_interest_amount"/></td>
+                                                <t t-set="all_main_amount" t-value="all_main_amount + t.all_main_amount"/>
+                                                <t t-set="all_interest_amount" t-value="all_interest_amount + t.all_interest_amount"/>
+                                                <t t-set="total_amount" t-value="all_main_amount + all_interest_amount"/>
+                                            </tr>
+<!--                                            <tr>-->
+<!--                                                <td colspan="3"></td>-->
+<!--                                                <td><p class="text-center"><strong>Total Earn Per Day</strong></p></td>-->
+<!--                                                <td><strong><span t-esc="total_mainamnt"/>.00 Tk</strong></td>-->
+<!--                                                <td><strong><span t-esc="total_intramnt"/>.00 Tk</strong></td>-->
+<!--                                            </tr>-->
+                                        </tbody>
+
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+
+                                        </div>
+                                        <div class="col-xs-6 ">
+                                            <div class="col-xs-6">
+                                                <hr/>
+                                                <h5 class="text-center"><strong>Subtotal</strong></h5>
+                                                <hr/>
+                                                <h5 class="text-center"><strong>Total </strong></h5>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <hr/>
+                                                <h5 class="text-center"><strong><span t-esc="total_amount"/>.00 Tk</strong></h5>
+                                                <hr/>
+                                                <h5 class="text-center"><strong><span t-esc="total_amount"/>.00 Tk</strong></h5>
+                                            </div>
+                                        </div>
+                                    </div><br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+                                    <div class="Footer">
+                                        <div class="row">
+                                        <div class="col-xs-4">
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <p class="text-left">-----------------------------</p>
+                                            <p class="text-left">Accountant Signature</p>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <br/>
+                                            <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" class="img-responsive center-block"
+                                                 width="100" height="100"/>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <p class="text-right">----------------------------</p>
+                                            <p class="text-right">Moderator Signature</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+<!--                    <t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>-->
+            </t>
+        </template>
+</odoo>

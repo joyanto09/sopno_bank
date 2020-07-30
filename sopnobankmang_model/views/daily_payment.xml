@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Customer-->
+    <record id="daily_payment_tree_view" model="ir.ui.view">
+        <field name="name">daily_payment.tree.view</field>
+        <field name="model">daily_payment</field>
+        <field name="arch" type="xml">
+            <tree string="daily_payment Information">
+<!--                <field name="id"/>-->
+                <field name="name"/>
+                <field name="c_payment_id" invisible="1"/>
+                <field name="c_account_no" invisible="1"/>
+                <field name="c_payment_name"/>
+                <field name="c_payment_date"/>
+                <field name="c_payment_year" invisible="1"/>
+                <field name="c_payment_notes" invisible="1"/>
+                <field name="c_payment_daily"/>
+                <field name="c_payment_mainamnt"/>
+                <field name="c_payment_interest"/>
+                <field name="c_loan_amount"/>
+                <field name="c_payment_due"/>
+                <field name="c_main_loan"/>
+                <field name="c_total_pay"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Group-->
+    <record id="daily_payment_search_view" model="ir.ui.view">
+        <field name="name">daily_payment.search.view</field>
+         <field name="model">daily_payment</field>
+        <field name="arch" type="xml">
+            <search string="customer search">
+                <group expand="1" string="Group by ..">
+                    <filter name="c_payment_name" string="Name" domain="[]" context="{'group_by':'c_payment_name'}"/>
+<!--                    <filter name="c_payment_id" string="Age" domain="[]" context="{'group_by':'c_payment_id'}"/>-->
+                    <filter name="c_payment_date" string="Date" domain="[]" context="{'group_by':'c_payment_date'}"/>
+                </group>
+    <!-- Filter -->
+                <!-- < age =20 -->
+<!--                <filter string="My Second Filter" name="c_age" domain="[('c_age', '&lt;', 20)]">-->
+<!--                </filter>-->
+
+<!--                <filter string="My First Filter" name="c_age" domain="[('c_age', '&gt;', 20)]">-->
+
+<!--                </filter>-->
+            <!-- Data Searching -->
+                <field name="c_payment_name" string="Name" filter_domain="[('c_payment_name', 'ilike', self)]"/>
+                <field name="c_payment_date" string="Date" filter_domain="[('c_payment_date', 'ilike', self)]"/>
+<!--                <field name="c_payment_id" string="Age" filter_domain="[('cus_loan_acid', 'ilike', self)]"/>-->
+
+            </search>
+        </field>
+
+    </record>
+
+    <!-- Form View Of Customer  -->
+    <record id="daily_payment_form_view" model="ir.ui.view">
+        <field name="name">daily_payment.form.view</field>
+        <field name="model">daily_payment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="customer_payment_confirm" string="Confirm Payment" type="object"
+                           attrs="{'invisible':[('state','!=', 'draft')]}" class="btn-success"/>
+                    <button name="" string="Cancel" type="" class="btn"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,paid,cancel,"/>
+                </header>
+                 <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="open_customer_savings_form"
+                            string="Customer Savings" type="object"
+                            attrs="{'invisible':[('state','!=', 'paid')]}" icon="fa-bars"/> <!--attrs="{'invisible':[('move_line_ids','=',[])]}"-->
+                     </div>
+                     <div class="oe_title">
+                        <h1>
+                            <field name="payment_sec" readonly="1" attrs="{'invisible':[('state','!=', 'paid')]}"/>
+                        </h1>
+                     </div>
+                     <group>
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-2" style="padding-left:0px;">
+                                     <div style="border: 1px solid lightgray">
+                                         <img src="/sopnobankmang_model/static/src/img/com-logo.jpg" width="50" height="50"/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-10" style="padding-top:0px;">
+                                     <h3 class="text-primary" style=" margin-top: 12px;">CUSTOMER DAILY PAYMENT FORM</h3>
+                                 </div>
+                            </div>
+                         </group>
+
+                         <group>
+                             <div class="header">
+                                 <div class="col-xs-3" style="padding-left:0px; padding-top:11px; padding-right:0px;">
+                                     <div style="" class="text-left; text-success">
+                                         <lebel class="text-uppercase">Daily Earning: </lebel><br/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-3" style="padding-top:0px; padding-left:3px; padding-right:0px;">
+                                     <div style="border: 1px solid green" class="text-center">
+                                         <lebel><strong>MAIN</strong></lebel><br/>
+
+                                         <field name="main_ammn_show" readonly="1"/>
+
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-3" style="padding-top:0px; padding-left:0px; padding-right:0px;">
+                                     <div style="border: 1px solid green" class="text-center">
+                                         <lebel><strong>INTEREST</strong></lebel><br/>
+                                         <field name="interest_ammn_show" readonly="1"/>
+                                     </div>
+                                 </div>
+                                 <div class="col-xs-3" style="padding-top:0px; padding-left:0px; padding-right:0px; ">
+                                     <div style="border: 1px solid green" class="text-center">
+                                         <lebel><strong>TOTAL</strong></lebel><br/>
+                                         <field name="total_ammn_show" readonly="1"/>
+                                     </div>
+                                 </div>
+                            </div>
+                         </group>
+
+                     </group>
+                     <group>
+                        <group>
+                            <field name="name" placeholder="Search Customer"/>
+                            <field name="c_payment_id" invisible="1"/>
+                            <field name="c_account_no" placeholder="Customer ACC No"/>
+                            <field name="c_payment_name" placeholder="Customer Name"/>
+                            <field name="c_payment_date" placeholder="Payment Date"/>
+                            <field name="c_payment_year" placeholder="Payment Year"/>
+                            <field name="c_payment_notes" placeholder="Payment Notes"/>
+                        </group>
+                        <group>
+                            <field name="c_main_loan"/>
+                            <field name="c_loan_amount"/>
+                            <field name="c_payment_daily"/>
+                            <field name="c_payment_mainamnt"/>
+                            <field name="c_payment_interest"/>
+                            <field name="c_payment_due" readonly="1"/>
+                        </group>
+                     </group>
+                 </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--   Define custom action -->
+
+    <record id="daily_payment_action" model="ir.actions.act_window">
+        <field name="name">Customer Payment</field>
+        <field name="res_model">daily_payment</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click here to create new item !
+            </p>
+        </field>
+    </record>
+    <!--   Create Top Menu  -->
+    <menuitem name="Daily Payment" parent="customer_top_menu" id="customer_payment" sequence="2"/>
+    <menuitem name="Customer Payment Form" parent="customer_payment" id="daily_payment_top_menu" action="daily_payment_action" sequence="1"/>
+</odoo>
+
